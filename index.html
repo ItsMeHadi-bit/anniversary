@@ -1,0 +1,419 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Happy Anniversary Mama & Baba (21 years MashALLAH) </title>
+    <!-- Tailwind CSS for layout and responsiveness -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Google Fonts for elegant typography -->
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;0,700;1,400&family=Lora:ital,wght@0,400;0,500;1,400&display=swap" rel="stylesheet">
+    
+    <style>
+        /* CSS Variables for Golden and Olive Green Palette */
+        :root {
+            --gold-light: #fef08a;
+            --gold-main: #d4af37;
+            --gold-dark: #b49326;
+            --olive-light: #a3b18a;
+            --olive-main: #556b2f;
+            --olive-dark: #3b4d20;
+        }
+
+        /* Base setup to prevent scrolling */
+        body, html {
+            margin: 0;
+            padding: 0;
+            width: 100%;
+            height: 100%;
+            overflow: hidden; /* Enforces the non-scrolling requirement */
+            font-family: 'Lora', serif;
+            background-color: #1a1a1a; /* Fallback */
+        }
+
+        /* Beautiful Gradient Background */
+        .bg-gradient-custom {
+            background: linear-gradient(135deg, var(--olive-dark) 0%, var(--olive-main) 40%, var(--gold-dark) 70%, var(--gold-light) 100%);
+            background-size: 200% 200%;
+            animation: gradientShift 15s ease-in-out infinite;
+        }
+
+        @keyframes gradientShift {
+            0% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+            100% { background-position: 0% 50%; }
+        }
+
+        /* Glassmorphism Classes */
+        .glass-panel {
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.3);
+            border-radius: 1.5rem;
+        }
+
+        .glass-text-box {
+            background: rgba(85, 107, 47, 0.2); /* Hint of olive */
+            backdrop-filter: blur(8px);
+            border-left: 4px solid var(--gold-main);
+            border-right: 4px solid var(--gold-main);
+        }
+
+        /* Typography */
+        h1, h2, h3, .heading-font {
+            font-family: 'Playfair Display', serif;
+        }
+
+        .text-gold { color: var(--gold-main); }
+        .text-gold-light { color: var(--gold-light); }
+        
+        /* STREAMING_CHUNK:Animations and Transitions... -->
+        /* Smooth Ease-in-out Animations */
+        .fade-transition {
+            transition: opacity 1.5s ease-in-out, transform 1.5s ease-in-out;
+        }
+
+        .fade-out {
+            opacity: 0;
+            pointer-events: none;
+            transform: scale(1.05); /* Slight grow on fade out */
+        }
+
+        .fade-in {
+            opacity: 1;
+            transform: scale(1);
+        }
+
+        .hidden-initially {
+            opacity: 0;
+            pointer-events: none;
+            transform: scale(0.95); /* Slight shrink before fade in */
+        }
+
+        /* Initial Overlay styling */
+        #intro-overlay {
+            position: absolute;
+            inset: 0;
+            z-index: 50;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            background: linear-gradient(to bottom, #000000dd, #1a1a1add);
+            backdrop-filter: blur(5px);
+        }
+
+        /* Beautiful Play Button */
+        .play-btn {
+            background: linear-gradient(45deg, var(--gold-main), var(--gold-light));
+            color: var(--olive-dark);
+            border: none;
+            border-radius: 50px;
+            padding: 1rem 3rem;
+            font-size: 1.25rem;
+            font-weight: bold;
+            cursor: pointer;
+            box-shadow: 0 4px 15px rgba(212, 175, 55, 0.4);
+            transition: all 0.3s ease;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            font-family: 'Playfair Display', serif;
+        }
+
+        .play-btn:hover {
+            transform: translateY(-3px) scale(1.02);
+            box-shadow: 0 6px 20px rgba(212, 175, 55, 0.6);
+            background: linear-gradient(45deg, var(--gold-light), var(--gold-main));
+        }
+
+        /* Image Gallery Layout (Absolute positioning to prevent scroll) */
+        .gallery-container {
+            position: relative;
+            width: 100%;
+            height: 100%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .photo-frame {
+            position: absolute;
+            transition: all 2s cubic-bezier(0.4, 0, 0.2, 1); /* Very smooth */
+            opacity: 0;
+            transform: scale(0.8) translateY(20px);
+            z-index: 10;
+        }
+
+        .photo-frame.active {
+            opacity: 1;
+            transform: scale(1) translateY(0);
+            z-index: 20;
+        }
+
+        .photo-inner {
+            padding: 10px;
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 12px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.5);
+            backdrop-filter: blur(4px);
+            border: 1px solid rgba(212, 175, 55, 0.3); /* Gold hint */
+        }
+
+        .photo-inner img {
+            border-radius: 8px;
+            object-fit: cover;
+            width: 100%;
+            height: 100%;
+            max-height: 50vh; /* Keeps it within screen on mobile */
+            max-width: 80vw;
+        }
+
+        /* Floating particles effect for extra beauty */
+        .particle {
+            position: absolute;
+            background: radial-gradient(circle, var(--gold-light) 0%, transparent 70%);
+            border-radius: 50%;
+            pointer-events: none;
+            opacity: 0.6;
+            animation: float 8s infinite ease-in-out alternate;
+        }
+
+        @keyframes float {
+            0% { transform: translateY(0) translateX(0) scale(1); opacity: 0.3; }
+            50% { opacity: 0.7; }
+            100% { transform: translateY(-100px) translateX(20px) scale(1.5); opacity: 0; }
+        }
+        
+        /* Message Area */
+        .message-area {
+            position: absolute;
+            bottom: 5%;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 90%;
+            max-width: 600px;
+            text-align: center;
+            z-index: 30;
+        }
+
+    </style>
+</head>
+<body class="bg-gradient-custom text-gray-100">
+
+    <!-- Audio Element (Hidden) -->
+    <audio id="bgMusic" loop preload="auto">
+        <!-- Changed to jsDelivr CDN to fix GitHub Raw MIME type/streaming issues -->
+        <source src="https://cdn.jsdelivr.net/gh/ItsMeHadi-bit/anniversary@main/Arijit%20Singh%20-%20Aaj%20Se%20Teri%20(Lyrics%20Video)%20Padman%20Akshay%20Kumar%20%2C%20Radhika%20Apte.mp3" type="audio/mpeg">
+        Your browser does not support the audio element.
+    </audio>
+
+    <!-- Particles Container for subtle background effect -->
+    <div id="particles" class="absolute inset-0 overflow-hidden pointer-events-none z-0"></div>
+
+    <!-- Initial Overlay Screen -->
+    <div id="intro-overlay" class="fade-transition flex flex-col items-center justify-center p-6 text-center">
+        <h1 class="text-4xl md:text-6xl mb-6 text-gold-light italic drop-shadow-lg">A Lifetime of Love</h1>
+        <p class="text-lg md:text-xl text-gray-300 mb-12 max-w-md font-light">
+            A small tribute to the most beautiful journey of you both (21 years). Turn up your volume.
+        </p>
+        <button id="start-btn" class="play-btn">
+            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="currentColor" stroke="none"><path d="M7 4v16l13-8z"/></svg>
+            Begin Journey
+        </button>
+    </div>
+
+    <!-- Main Content (Hidden Initially) -->
+    <div id="main-content" class="hidden-initially fade-transition w-full h-full relative flex flex-col items-center justify-center p-4">
+        
+        <!-- Header (Glassmorphism) -->
+        <div class="absolute top-6 left-1/2 transform -translate-x-1/2 z-30 w-11/12 max-w-2xl">
+            <div class="glass-panel p-4 text-center">
+                <h1 class="text-3xl md:text-5xl text-gold italic font-semibold drop-shadow-md">Happy Anniversary!💝</h1>
+                <p class="text-sm md:text-base text-gray-200 mt-2 tracking-widest uppercase opacity-80">Mama & Baba</p>
+            </div>
+        </div>
+
+        <!-- Image Gallery Container -->
+        <div class="gallery-container w-full h-full pt-24 pb-32" id="gallery">
+            <!-- Images will be injected here by JS. 
+                 REPLACE THE URLs in the JavaScript array below. -->
+        </div>
+
+        <!-- Message Box (Glassmorphism) -->
+        <div class="message-area">
+            <div class="glass-text-box glass-panel p-6">
+                <p id="changing-message" class="text-lg md:text-2xl text-gray-100 font-medium italic transition-opacity duration-1000 ease-in-out opacity-100">
+                 Suna hai log use ankh bhar ke dekhte hai...💕❤️
+                </p>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const startBtn = document.getElementById('start-btn');
+            const introOverlay = document.getElementById('intro-overlay');
+            const mainContent = document.getElementById('main-content');
+            const bgMusic = document.getElementById('bgMusic');
+            const galleryContainer = document.getElementById('gallery');
+            const messageElement = document.getElementById('changing-message');
+
+            // --- USER CONFIGURATION START ---
+            
+            // 1. Add your 8 GitHub raw image URLs here
+            // Note: Converted to raw.githubusercontent.com for direct loading
+            const imageUrls = [
+                "https://raw.githubusercontent.com/ItsMeHadi-bit/anniversary/main/2.jpeg", 
+                "https://raw.githubusercontent.com/ItsMeHadi-bit/anniversary/main/4.jpeg", 
+                "https://raw.githubusercontent.com/ItsMeHadi-bit/anniversary/main/3.jpeg", 
+                "https://raw.githubusercontent.com/ItsMeHadi-bit/anniversary/main/1.jpeg", 
+                "https://raw.githubusercontent.com/ItsMeHadi-bit/anniversary/main/5.jpeg", 
+                "https://raw.githubusercontent.com/ItsMeHadi-bit/anniversary/main/6.jpeg", 
+                "https://raw.githubusercontent.com/ItsMeHadi-bit/anniversary/main/7.jpeg", 
+                "https://raw.githubusercontent.com/ItsMeHadi-bit/anniversary/main/8.jpeg"  
+            ];
+
+            // 2. Beautiful messages to cycle through - Updated with lyrics from the song
+            const messages = [
+                "Suna hai log use ankh bhar ke dekhte hai...💕❤️",
+                "So us ke sheher main kuch din thehr ke dekhte hai...💘",
+                "Suna hai hashr hain us ki ghazal si ankhen...💝",
+                "suna hai us ko hirn dasht bhar ke dekhte hai...💗",
+                "Suna hai din main use titlian stati hai...💌",
+                "suna hai raat main jugnu thehr ke dekhte hai...💞",
+                "Ab us ke shehr main thehren ya kooch kr jaen...💟",
+                "Faraz ao sitaray safr ke dekhtay hai...🎵"
+            ];
+            
+            // --- USER CONFIGURATION END ---
+
+            let currentSlide = 0;
+            let slideInterval;
+
+            // Initialize Gallery Images
+            function buildGallery() {
+                imageUrls.forEach((url, index) => {
+                    const frame = document.createElement('div');
+                    frame.className = `photo-frame ${index === 0 ? 'active' : ''}`;
+                    
+                    // Add slight random rotation for a "scattered photos" look, but subtle
+                    const rotation = (Math.random() * 6 - 3).toFixed(1); // Between -3deg and 3deg
+                    frame.style.transform = index === 0 ? `rotate(${rotation}deg)` : `scale(0.8) translateY(20px) rotate(${rotation}deg)`;
+                    
+                    const inner = document.createElement('div');
+                    inner.className = 'photo-inner';
+                    
+                    const img = document.createElement('img');
+                    img.src = url;
+                    img.alt = `Mom and Dad Memory ${index + 1}`;
+                    
+                    // Error handling for images
+                    img.onerror = function() {
+                        this.src = `https://placehold.co/600x400/d4af37/ffffff?text=Memory+${index+1}`;
+                    };
+
+                    inner.appendChild(img);
+                    frame.appendChild(inner);
+                    galleryContainer.appendChild(frame);
+                });
+            }
+
+            // Function to transition slides
+            function nextSlide() {
+                const frames = document.querySelectorAll('.photo-frame');
+                
+                // Fade out current
+                frames[currentSlide].classList.remove('active');
+                
+                // Message fade out
+                messageElement.style.opacity = '0';
+
+                currentSlide = (currentSlide + 1) % imageUrls.length;
+
+                // Wait for fade out, then change content and fade in
+                setTimeout(() => {
+                    // Update message
+                    messageElement.innerText = messages[currentSlide];
+                    
+                    // Fade in new frame
+                    const nextFrame = frames[currentSlide];
+                    // Maintain the random rotation when active
+                    const currentRotation = nextFrame.style.transform.match(/rotate\((.*?)deg\)/);
+                    const rotValue = currentRotation ? currentRotation[1] : 0;
+                    nextFrame.style.transform = `scale(1) translateY(0) rotate(${rotValue}deg)`;
+                    nextFrame.classList.add('active');
+                    
+                    // Message fade in
+                    messageElement.style.opacity = '1';
+                }, 1000); // 1 second syncs with CSS transition
+            }
+
+            // Start the experience
+            startBtn.addEventListener('click', () => {
+                // 1. Fade out intro
+                introOverlay.classList.add('fade-out');
+                
+                // 2. Play music using Promise handling (fixes silent fails)
+                bgMusic.volume = 0; // Start at 0 for fade in
+                
+                const playPromise = bgMusic.play();
+                if (playPromise !== undefined) {
+                    playPromise.then(() => {
+                        // Fade in music audio smoothly
+                        let vol = 0;
+                        const fadeAudio = setInterval(() => {
+                            if (vol < 0.8) { // Max volume 80%
+                                vol += 0.05;
+                                bgMusic.volume = vol;
+                            } else {
+                                clearInterval(fadeAudio);
+                                bgMusic.volume = 0.8; // Ensure it ends exactly at target volume
+                            }
+                        }, 200);
+                    }).catch(error => {
+                        console.error("Audio playback failed (check URL or browser permissions):", error);
+                        bgMusic.volume = 0.8; // Set volume up in case user forces play later
+                    });
+                }
+
+                // 3. Fade in main content after intro fades out
+                setTimeout(() => {
+                    introOverlay.style.display = 'none'; // Remove from flow
+                    mainContent.classList.remove('hidden-initially');
+                    mainContent.classList.add('fade-in');
+                    
+                    // Start the slideshow
+                    slideInterval = setInterval(nextSlide, 7000); // Change every 8 seconds
+                }, 1500); // Matches CSS transition time
+            });
+
+            // Create floating particles for background ambiance
+            function createParticles() {
+                const particleContainer = document.getElementById('particles');
+                for (let i = 0; i < 30; i++) {
+                    const particle = document.createElement('div');
+                    particle.className = 'particle';
+                    
+                    // Randomize position, size, and animation delay
+                    const size = Math.random() * 15 + 5;
+                    particle.style.width = `${size}px`;
+                    particle.style.height = `${size}px`;
+                    particle.style.left = `${Math.random() * 100}vw`;
+                    particle.style.top = `${Math.random() * 100}vh`;
+                    particle.style.animationDelay = `${Math.random() * 8}s`;
+                    particle.style.animationDuration = `${Math.random() * 5 + 5}s`;
+                    
+                    particleContainer.appendChild(particle);
+                }
+            }
+
+            // Initialize
+            buildGallery();
+            createParticles();
+        });
+    </script>
+</body>
+</html>
